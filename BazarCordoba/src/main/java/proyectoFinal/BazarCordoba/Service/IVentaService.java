@@ -3,7 +3,7 @@ package proyectoFinal.BazarCordoba.Service;
 import java.time.LocalDate;
 import proyectoFinal.BazarCordoba.Model.Venta;
 import java.util.List;
-import proyectoFinal.BazarCordoba.Model.Producto;
+import proyectoFinal.BazarCordoba.Model.DetalleVenta;
 
 
 public interface IVentaService {
@@ -12,16 +12,17 @@ public interface IVentaService {
     
     public void deleteVenta(Long codigo_venta);
     
-    public List<Venta> getVentas();
+    public List<Venta> getVenta();
     
-    public Venta findVenta(Long codigo_venta);
+    public Venta findVentaByCod(Long codigo_venta);
     
     public void editVenta(Venta unaVenta);
      
-    public List<Producto> getVentaPorCodigo(Long codigo_venta);
+    public List<DetalleVenta> getDetalleVentaPorCodigoVenta(Long codigo_venta);
     
-    public void getPorFecha(LocalDate fecha_venta);
+    public List<Venta> getPorFecha(LocalDate fecha_venta);
     
-    // public DtoVentaCliente getMayorVenta();
+    public List<Venta> listaComprasCliente(Long id_cliente);
+    
     
 }

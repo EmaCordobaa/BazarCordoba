@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package proyectoFinal.BazarCordoba.Controller;
 
 import java.time.LocalDate;
@@ -14,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import proyectoFinal.BazarCordoba.Model.Producto;
+import proyectoFinal.BazarCordoba.Model.DetalleVenta;
 import proyectoFinal.BazarCordoba.Service.IVentaService;
 import proyectoFinal.BazarCordoba.Model.Venta;
 
@@ -25,7 +22,8 @@ public class VentasController {
     @Autowired 
     private IVentaService IventServ;
     
-    @PostMapping("/ventas/crear")
+    //CREAR VENTA
+    @PostMapping("/venta/crear")
     public String createVenta(@RequestBody Venta unaVenta){
         
         IventServ.saveVenta(unaVenta);
@@ -33,21 +31,24 @@ public class VentasController {
         return "se ah creado con exito";
     }
     
-    @GetMapping("/ventas")
+    //LISTA VENTAS
+    @GetMapping("/venta")
     public List<Venta> getVentas(){
         
-        return IventServ.getVentas();
+        return IventServ.getVenta();
         
     }
     
-    @GetMapping("/ventas/{codigo_venta}")
+    //OBTENER VENTA POR CODIGO
+    @GetMapping("/venta/{codigo_venta}")
     
     public Venta getUnaVenta(@PathVariable Long codigo_venta){
         
-        return IventServ.findVenta(codigo_venta);
+        return IventServ.findVentaByCod(codigo_venta);
          
     }
     
+    //BORRAR VENTA
     @DeleteMapping ("/venta/eliminar/{codigo_venta}")
     
     public String deleteVenta(@PathVariable Long codigo_venta){
@@ -58,40 +59,41 @@ public class VentasController {
         
     }
     
+    //EDITAR VENTA
     @PutMapping("/venta/editar")
     
     public Venta editVenta(@RequestBody Venta unaVenta){
         
         IventServ.editVenta(unaVenta);
         
-        return IventServ.findVenta(unaVenta.getCodigo_venta());
+        return IventServ.findVentaByCod(unaVenta.getCodigo_venta());
         
     }
     
+    //DETALLE DE VENTA DE UNA COMPRA ESPECIFICA
     @GetMapping ("/venta/productos/{codigo_venta}")
     
-    public List<Producto> getListaProdPorCodigo_venta(@PathVariable Long codigo_venta){
+    public List<DetalleVenta> getListaProdPorCodigo_venta(@PathVariable Long codigo_venta){
     
-    return IventServ.getVentaPorCodigo(codigo_venta);
+    return IventServ.getDetalleVentaPorCodigoVenta(codigo_venta);
     
     }
     
-    @GetMapping ("/ventas/{fecha_venta}")
+    //BUSCAR VENTA POR FECHA
+    @GetMapping ("/venta/fecha/{fecha_venta}")
     public void getVentaFecha(@PathVariable LocalDate fecha_venta){
         
         IventServ.getPorFecha(fecha_venta);
            
         
     } 
-    /*        
-    @GetMapping ("/ventas/mayor_venta")
-    public DtoVentaCliente getDto (){
+    
+    //TRAER LISTA DE TODAS LAS COMPRAS DE UN CLIENTE ESPECIFICO
+    @GetMapping("/venta/compras/{id_cliente}")
+    public List<Venta> listaVentasIdCliente(@PathVariable Long id_cliente){
         
-        return IventServ.getMayorVenta();
-        
+        return IventServ.listaComprasCliente(id_cliente);
         
     }
-    */      
-            
             
 }

@@ -13,20 +13,26 @@ public class ClienteService implements IClienteService{
     @Autowired
     private IClienteRepository IClienRepo;
     
+    
+    //CREAR CLIENTE
     @Override
     public void saveCliente(Cliente unCliente) {
         
         IClienRepo.save(unCliente);
         
     }
-
+    
+    
+    //BORRAR CLIENTE
     @Override
     public void deleteCliente(Long id_cliente) {
         
         IClienRepo.deleteById(id_cliente);
         
     }
-
+    
+    
+    //OBTENER LISTA CLIENTES
     @Override
     public List<Cliente> getClientes() {
         
@@ -34,19 +40,28 @@ public class ClienteService implements IClienteService{
         return listaClientes;
                 
     }
-
+    
+    
+    //OBTENER CLIENTE ESPECIFICO 
     @Override
-    public Cliente findCliente(Long id_cliente) {
+    public Cliente findClienteByID(Long id_cliente) {
        
         return IClienRepo.findById(id_cliente).orElse(null);
         
     }
-
+    
+    
+    //EDITAR CLIENTE 
     @Override
     public void editCliente(Cliente unCliente) {
         
         IClienRepo.save(unCliente);
         
     }
-    
+
+
+
+
 }
+    
+

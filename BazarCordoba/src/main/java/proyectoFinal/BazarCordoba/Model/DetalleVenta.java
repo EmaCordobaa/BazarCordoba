@@ -19,14 +19,17 @@ public class DetalleVenta {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id_detalleVenta;
-
+    
+    //VENTA
     @ManyToOne
-    @JoinColumn(name = "venta_id")
-    private Venta venta;
+    @JoinColumn(name = "codigo_venta")
+    private Venta unaVenta;
 
+    
+    //PRODUCTO
     @ManyToOne
-    @JoinColumn(name = "producto_id")
-    private Producto producto;
+    @JoinColumn(name = "codigo_producto")
+    private Producto unProducto;
 
     private Integer cantidadVendida;
     private Double subtotal;
@@ -34,13 +37,14 @@ public class DetalleVenta {
     public DetalleVenta() {
     }
 
-    public DetalleVenta(Long id_detalleVenta, Venta venta, Producto producto, Integer cantidadVendida, Double subtotal) {
+    public DetalleVenta(Long id_detalleVenta, Venta unaVenta, Producto unProducto, Integer cantidadVendida, Double subtotal) {
         this.id_detalleVenta = id_detalleVenta;
-        this.venta = venta;
-        this.producto = producto;
+        this.unaVenta = unaVenta;
+        this.unProducto = unProducto;
         this.cantidadVendida = cantidadVendida;
         this.subtotal = subtotal;
     }
+
     
     
     

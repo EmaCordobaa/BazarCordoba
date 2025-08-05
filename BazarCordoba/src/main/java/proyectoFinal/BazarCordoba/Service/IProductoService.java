@@ -9,15 +9,16 @@ public interface IProductoService {
     
     public void saveProducto(Producto unProducto);
     
-    public void deleteProducto(Long codigo_producto);
+    public void deleteProductoByCod(Long codigo_producto);
     
-    public List<Producto> getProductos();
+    public List<Producto> getListaProductos();
     
-    public Producto findProducto(Long codigo_producto);
+    public Producto findProductoByCod(Long codigo_producto);
     
     public void editProducto(Producto unProducto);
     
     public List<Producto> faltaStock ();
     
+    public void devolucionDeProducto(Long codigo_producto,Double cantidad_producto);
     
 }

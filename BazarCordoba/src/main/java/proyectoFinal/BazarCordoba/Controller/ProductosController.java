@@ -3,7 +3,6 @@ package proyectoFinal.BazarCordoba.Controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +21,8 @@ public class ProductosController {
     @Autowired 
     private IProductoService IProduServ;
     
-    @PostMapping("/productos/crear")
+    //CREAR PRODUCTO 
+    @PostMapping("/producto/crear")
     
     public String createProducto(@RequestBody Producto unProducto){
         
@@ -31,43 +31,48 @@ public class ProductosController {
         return "se ah creado con exito";
     }
     
-    @GetMapping("/productos")
+    //LISTA DE PRODUCTOS 
+    @GetMapping("/producto")
     
     public List<Producto> getProductos(){
         
-        return IProduServ.getProductos();
+        return IProduServ.getListaProductos();
         
     }
     
-    @GetMapping("/productos/{codigo_producto}")
+    //TRAER PRUDUCTO POR CODIGO 
+    @GetMapping("/producto/{codigo_producto}")
     
     public Producto getUnProducto(@PathVariable Long codigo_producto){
         
-        return IProduServ.findProducto(codigo_producto);
+        return IProduServ.findProductoByCod(codigo_producto);
          
     }
     
-    @DeleteMapping ("/productos/eliminar/{codigo_producto}")
+    //BORRAR PRODUCTO 
+    @DeleteMapping ("/producto/eliminar/{codigo_producto}")
     
     public String deleteProducto(@PathVariable Long codigo_producto){
         
-        IProduServ.deleteProducto(codigo_producto);
+        IProduServ.deleteProductoByCod(codigo_producto);
         
         return "se ah eliminado correctamente";
         
     }
     
-    @PutMapping("/productos/editar")
+    //EDITAR PRODUCTO
+    @PutMapping("/producto/editar")
     
     public Producto editProductos(@RequestBody Producto unProducto){
         
         IProduServ.editProducto(unProducto);
         
-        return IProduServ.findProducto(unProducto.getCodigo_producto());
+        return IProduServ.findProductoByCod(unProducto.getCodigo_producto());
         
     }
     
-    @GetMapping ("/productos/falta_stock")
+    //CONSULTA DE FALTA DE STOCK 
+    @GetMapping ("/producto/falta_stock")
     
     public List<Producto> FaltaStock(){
         
@@ -75,4 +80,14 @@ public class ProductosController {
         
     }
     
+    //DEVOLUCION DE PRODUCTO 
+    @PutMapping("/producto/devolucion/{codigo_producto}/{cantidad_producto}")
+    public void devolucionDeproducto(@PathVariable Long codigo_producto,
+                                     @PathVariable Double cantidad_producto){
+        
+           IProduServ.devolucionDeProducto(codigo_producto, cantidad_producto);
+        
+    }
+        
+        
 }

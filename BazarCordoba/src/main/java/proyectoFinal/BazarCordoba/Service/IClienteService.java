@@ -3,7 +3,6 @@ package proyectoFinal.BazarCordoba.Service;
 import proyectoFinal.BazarCordoba.Model.Cliente;
 import java.util.List;
 
-
 public interface IClienteService {
     
     public void saveCliente(Cliente unCliente);
@@ -12,9 +11,11 @@ public interface IClienteService {
     
     public List<Cliente> getClientes();
     
-    public Cliente findCliente(Long id_cliente);
+    public Cliente findClienteByID(Long id_cliente);
     
     public void editCliente(Cliente unCliente);
+    
+    
     
     
 }

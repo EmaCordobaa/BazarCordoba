@@ -31,30 +31,45 @@ public class Venta {
 
     private Double total;
 
-    @OneToMany(mappedBy = "venta")
-    private List<DetalleVenta> detalles = new ArrayList<>();
+    
+    //DETALLE VENTA
+    @OneToMany(mappedBy = "unaVenta")
+    private List<DetalleVenta> listaDetallesVentas = new ArrayList<>();
 
+    
+    //VENTA 
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Cliente unCliente;
 
-    public Venta() {}
+    
+    @PrePersist
+    public void prePersist() {
 
-    public Venta(LocalDate fecha_venta, List<DetalleVenta> detalles, Cliente unCliente) {
+        this.fecha_venta = LocalDate.now();
+
+        if (this.listaDetallesVentas != null && !this.listaDetallesVentas.isEmpty()) {
+            double totalVenta = 0.0;
+
+            for (DetalleVenta detalle : this.listaDetallesVentas) {
+                if (detalle.getSubtotal() != null) {
+                    totalVenta += detalle.getSubtotal();
+                }
+            }
+            this.total = totalVenta;
+        }else {
+               this.total = 0.0;
+              }
+    }
+
+    public Venta(Long codigo_venta, LocalDate fecha_venta, Double total, Cliente unCliente) {
+        this.codigo_venta = codigo_venta;
         this.fecha_venta = fecha_venta;
-        this.detalles = detalles;
+        this.total = total;
         this.unCliente = unCliente;
     }
 
-    @PrePersist
-    public void prePersist() {
-        this.fecha_venta = LocalDate.now();
-
-        this.total = detalles.stream()
-                             .mapToDouble(DetalleVenta::getSubtotal)
-                             .sum();
+    public Venta() {
     }
-    
-    
-    
+
 }

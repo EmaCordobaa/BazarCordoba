@@ -18,6 +18,7 @@ public class ClienteController {
     @Autowired 
     private IClienteService IClienServ;
     
+    //CREAR CLIENTE
     @PostMapping("/cliente/crear")
     public String createCliente(@RequestBody Cliente unCliente){
         
@@ -26,6 +27,7 @@ public class ClienteController {
         return "se ah creado con exito";
     }
     
+    //OBTENER LISTA DE CLIENTES
     @GetMapping("/cliente")
     public List<Cliente> getCliente(){
         
@@ -33,14 +35,16 @@ public class ClienteController {
         
     }
     
+    //BUSCAR CLIENTE BY ID
     @GetMapping("/cliente/{id_cliente}")
     
     public Cliente getUnaCliente(@PathVariable Long id_cliente){
         
-        return IClienServ.findCliente(id_cliente);
+        return IClienServ.findClienteByID(id_cliente);
          
     }
     
+    //ELIMINAR CLIENTE
     @DeleteMapping ("/cliente/eliminar/{id_cliente}")
     
     public String deleteCliente(@PathVariable Long id_cliente){
@@ -51,17 +55,15 @@ public class ClienteController {
         
     }
     
+    //EDITAR CLIENTE
     @PutMapping("/cliente/editar")
     
     public Cliente editCliente(@RequestBody Cliente unCliente){
         
         IClienServ.editCliente(unCliente);
         
-        return IClienServ.findCliente(unCliente.getId_cliente());
-        
-        
+        return IClienServ.findClienteByID(unCliente.getId_cliente());
+         
     }
-    
-    
     
 }
